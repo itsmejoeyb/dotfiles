@@ -1,6 +1,7 @@
 theme = rose-pine
 font-size = 14.5
 macos-titlebar-style = hidden
+window-decoration = false
 window-padding-x = 10
 window-padding-y = 10
 window-padding-balance = true
