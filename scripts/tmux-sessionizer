@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Step 1: Select the directory (either from the argument or using fzf)
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(find ~/dev -mindepth 1 -maxdepth 1 -type d | fzf)
+fi
+
+# Step 2: Exit if no directory is selected
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+# Step 3: Clean the directory name (remove dots, replace with underscores)
+selected_name=$(basename "$selected" | tr . _)
+
+# Step 4: Check if we are already in a tmux session
+if [[ -z $TMUX ]]; then
+    # No tmux session exists, check if tmux is running
+    tmux_running=$(tmux list-sessions 2>/dev/null)
+
+    # If no tmux session is running, create a new session
+    if [[ -z $tmux_running ]]; then
+        tmux new-session -s "$selected_name" -c "$selected"
+        exit 0
+    fi
+
+    # Check if the session already exists
+    if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+        # Create a new detached session
+        tmux new-session -ds "$selected_name" -c "$selected"
+    fi
+else
+    # We're already inside tmux; handle session switching
+    if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+        # Create the session if it doesn't exist (detach it)
+        tmux new-session -ds "$selected_name" -c "$selected"
+    fi
+fi
+
+# Step 5: Attach or switch to the session
+# Only try to switch if we're already inside a tmux session
+if [[ -n $TMUX ]]; then
+    tmux switch-client -t "$selected_name"
+else
+    # If not in tmux, we want to attach to the session
+    tmux attach-session -t "$selected_name"
+fi
