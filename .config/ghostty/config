@@ -1,5 +1,7 @@
 theme = rose-pine
 font-size = 14
+title = "Secret Sauce"
+macos-titlebar-proxy-icon = hidden
 # macos-titlebar-style = hidden
 # window-decoration = false
 window-padding-x = 10
