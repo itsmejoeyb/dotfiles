@@ -17,6 +17,8 @@ keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- 
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 keymap.set("n", "<C-h>", "<C-w>h") -- move focus left
 keymap.set("n", "<C-l>", "<C-w>l") -- move focus right
+keymap.set("n", "<C-j>", "<C-w>j") -- move focus down
+keymap.set("n", "<C-k>", "<C-w>k") -- move focus up
 
 -- keymap for code actions
 keymap.set({ "n", "x" }, "<leader>a", '<cmd>lua require("fastaction").code_action()<CR>', { buffer = bufnr })

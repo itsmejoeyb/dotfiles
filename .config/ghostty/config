@@ -1,4 +1,4 @@
-theme = rose-pine
+theme = Rose Pine
 font-size = 15
 title = "Secret Sauce"
 macos-titlebar-proxy-icon = hidden
@@ -14,3 +14,4 @@ cursor-style = block
 shell-integration-features = no-cursor
 cursor-style-blink = false
 cursor-color = ffffff
+keybind = shift+enter=text:\n
